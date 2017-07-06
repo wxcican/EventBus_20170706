@@ -3,6 +3,7 @@ package com.fuicuiedu.xc.eventbus_20170706;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,11 +40,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MessageEvent event){
-
-        Toast.makeText(this, event.getMessage(), Toast.LENGTH_SHORT).show();
-
-        textView.setText(event.getMessage());
+    public void onEvent1(MessageEvent event){
+        Log.e("EventBus","MAIN线程模型，处理方法线程为" + Thread.currentThread().getName());
+    }
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onEvent2(MessageEvent event){
+        Log.e("EventBus","ASYNC线程模型，处理方法线程为" + Thread.currentThread().getName());
+    }
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onEvent3(MessageEvent event){
+        Log.e("EventBus","BACKGROUND线程模型，处理方法线程为" + Thread.currentThread().getName());
+    }
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onEvent4(MessageEvent event){
+        Log.e("EventBus","POSTING线程模型，处理方法线程为" + Thread.currentThread().getName());
     }
 
     @Override
